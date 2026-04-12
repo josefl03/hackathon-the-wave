@@ -1,0 +1,10 @@
+{
+  "name": "valencia-fire-iot",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "fetch:avamet": "node scripts/fetch-avamet.js",
+    "fetch:rvvcca": "node scripts/fetch-rvvcca.js",
+    "fetch:all": "node scripts/fetch-all.js"
+  }
+}
