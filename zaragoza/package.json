@@ -1,0 +1,28 @@
+{
+  "name": "zaragoza-apis",
+  "version": "1.0.0",
+  "description": "Extractores de datos para APIs de Zaragoza",
+  "type": "module",
+  "main": "scripts/fetch-all.js",
+  "scripts": {
+    "fetch-all": "node scripts/fetch-all.js",
+    "fetch-sensores": "node scripts/fetch-sensores.js",
+    "fetch-calidad-aire": "node scripts/fetch-calidad-aire.js",
+    "fetch-alertas": "node scripts/fetch-alertas.js",
+    "fetch-portal": "node scripts/fetch-portal-zaragoza.js",
+    "fetch-camaras": "node scripts/fetch-camaras.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "cheerio": "^1.0.0-rc.12",
+    "puppeteer": "^21.0.0"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "zaragoza",
+    "apis",
+    "data-extraction"
+  ],
+  "author": "Hackathon The Wave",
+  "license": "MIT"
+}
