@@ -16,11 +16,11 @@ async function fetchSensores() {
     // Check cache
     const cached = cache.get(CACHE_KEY);
     if (cached) {
-      console.log('[Sensores] Cache hit');
+      console.error('[Sensores] Cache hit');
       return normalizeResponse('sensores_islas', cached, 'ok', null);
     }
 
-    console.log('[Sensores] Fetching from', SENSOR_URL);
+    console.error('[Sensores] Fetching from', SENSOR_URL);
     const response = await axios.get(SENSOR_URL, { 
       timeout: 10000,
       headers: {
@@ -31,7 +31,7 @@ async function fetchSensores() {
     const geojson = response.data;
     const sensors = parseGeoJSONSensores(geojson);
     
-    console.log(`[Sensores] Got ${sensors.length} sensors`);
+    console.error(`[Sensores] Got ${sensors.length} sensors`);
     
     // Cache result
     cache.set(CACHE_KEY, sensors);

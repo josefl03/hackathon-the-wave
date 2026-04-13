@@ -28,16 +28,19 @@ export function normalizeError(source, error) {
 export function parseGeoJSONSensores(geojson) {
   if (!geojson?.features) return [];
   
+  // Zaragoza islas de calor GeoJSON uses COD_OBS / NOMBRE / POINT_X / POINT_Y
+  // Coordinates are in EPSG:25830 (UTM zone 30N) — stored as utm_x/utm_y
   return geojson.features.map(feature => ({
-    sensor_id: feature.properties?.sensor_id,
-    name: feature.properties?.name,
-    coordinates: feature.geometry?.coordinates,
-    lat: feature.geometry?.coordinates?.[1],
-    lon: feature.geometry?.coordinates?.[0],
-    temperature: feature.properties?.temperature,
-    humidity: feature.properties?.humidity,
-    timestamp: feature.properties?.timestamp
-  })).filter(s => s.sensor_id);
+    sensor_id: feature.properties?.COD_OBS,
+    name: feature.properties?.NOMBRE,
+    utm_x: feature.properties?.POINT_X,
+    utm_y: feature.properties?.POINT_Y,
+    coordinates_raw: feature.geometry?.coordinates,
+    // No live temp/humidity in this static GeoJSON — populated by separate API if available
+    temperature: feature.properties?.temperature ?? null,
+    humidity: feature.properties?.humidity ?? null,
+    timestamp: feature.properties?.timestamp ?? null
+  })).filter(s => s.sensor_id != null);
 }
 
 /**

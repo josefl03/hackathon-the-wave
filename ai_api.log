@@ -1,0 +1,29 @@
+/home/shared/TFIA/hackathon-the-wave/dashboard/backend/api/main.py:69: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+INFO:     Started server process [119996]
+INFO:     Waiting for application startup.
+INFO:inference_api:Starting up... initializing engines.
+INFO:inference_api:Loading MobileNetV2 from /home/shared/TFIA/hackathon-the-wave/modelos-ia/mobilenetv2/audioset_tagging_cnn/MobileNetV2_mAP=0.383.pth on cpu...
+INFO:inference_api:Loading YOLOv8 (NCNN) model from /home/shared/TFIA/hackathon-the-wave/modelos-ia/YOLOv8-Fire-and-Smoke-Detection/runs/detect/train/weights/best_ncnn_model...
+Loading /home/shared/TFIA/hackathon-the-wave/modelos-ia/YOLOv8-Fire-and-Smoke-Detection/runs/detect/train/weights/best_ncnn_model for NCNN inference...
+[0 Intel(R) Iris(R) Xe Graphics (TGL GT2)]  queueC=0[1]  queueT=0[1]
+[0 Intel(R) Iris(R) Xe Graphics (TGL GT2)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[0 Intel(R) Iris(R) Xe Graphics (TGL GT2)]  subgroup=32(8~32)  ops=1/1/1/1/1/1/1/1/1/1
+[0 Intel(R) Iris(R) Xe Graphics (TGL GT2)]  fp16-cm=0  int8-cm=0  bf16-cm=0  fp8-cm=0
+[1 llvmpipe (LLVM 20.1.2, 256 bits)]  queueC=0[1]  queueT=0[1]
+[1 llvmpipe (LLVM 20.1.2, 256 bits)]  fp16-p/s/u/a=1/1/1/1  int8-p/s/u/a=1/1/1/1  bf16-p/s=1/0
+[1 llvmpipe (LLVM 20.1.2, 256 bits)]  subgroup=8(8~8)  ops=1/1/1/1/1/1/1/1/1/1
+[1 llvmpipe (LLVM 20.1.2, 256 bits)]  fp16-cm=0  int8-cm=0  bf16-cm=0  fp8-cm=0
+
+0: 640x640 (no detections), 136.6ms
+Speed: 2.2ms preprocess, 136.6ms inference, 1.1ms postprocess per image at shape (1, 3, 640, 640)
+INFO:inference_api:YOLOv8 NCNN model loaded and Vulkan engine warmed up successfully.
+INFO:inference_api:MobileNetV2 loaded! Fire_idx=298, Crackle_idx=299
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:44486 - "POST /api/test/audio-sample HTTP/1.1" 200 OK

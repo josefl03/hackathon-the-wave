@@ -4,7 +4,7 @@
  */
 
 import axios from 'axios';
-import cheerio from 'cheerio';
+import * as cheerio from 'cheerio';
 import { normalizeResponse, normalizeError } from '../utils/normalize.js';
 import Cache from '../utils/cache.js';
 
@@ -50,15 +50,15 @@ async function fetchCameras() {
     // Check cache
     const cached = cache.get(CACHE_KEY);
     if (cached) {
-      console.log('[Cameras] Cache hit');
+      console.error('[Cameras] Cache hit');
       return normalizeResponse('camaras_zaragoza', cached, 'ok');
     }
 
-    console.log('[Cameras] Fetching camera streams');
+    console.error('[Cameras] Fetching camera streams');
     
     const camerasWithStreams = await Promise.all(
       CAMERAS.map(async (cam) => {
-        console.log(`  → Extracting ${cam.id}`);
+        console.error(`  → Extracting ${cam.id}`);
         const stream_url = await extractStreamUrl(cam.url);
         
         return {
@@ -70,7 +70,7 @@ async function fetchCameras() {
     );
 
     const available = camerasWithStreams.filter(c => c.available);
-    console.log(`[Cameras] Got ${available.length}/${camerasWithStreams.length} active cameras`);
+    console.error(`[Cameras] Got ${available.length}/${camerasWithStreams.length} active cameras`);
     
     // Cache result
     cache.set(CACHE_KEY, camerasWithStreams);

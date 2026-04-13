@@ -1,0 +1,8 @@
+names:
+- Fire
+- default
+- smoke
+nc: 3
+train: /home/shared/TFIA/hackathon-the-wave/modelos-ia/YOLOv8-Fire-and-Smoke-Detection/datasets/fire-8/train/images
+val: /home/shared/TFIA/hackathon-the-wave/modelos-ia/YOLOv8-Fire-and-Smoke-Detection/datasets/fire-8/valid/images
+test: /home/shared/TFIA/hackathon-the-wave/modelos-ia/YOLOv8-Fire-and-Smoke-Detection/datasets/fire-8/test/images

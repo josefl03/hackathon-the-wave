@@ -16,11 +16,11 @@ async function fetchPortalZaragoza() {
     // Check cache
     const cached = cache.get(CACHE_KEY);
     if (cached) {
-      console.log('[Portal] Cache hit');
+      console.error('[Portal] Cache hit');
       return normalizeResponse('portal_zaragoza', cached, 'ok');
     }
 
-    console.log('[Portal] Fetching from', PORTAL_URL);
+    console.error('[Portal] Fetching from', PORTAL_URL);
     
     const response = await axios.get(PORTAL_URL, {
       timeout: 10000,
@@ -43,7 +43,7 @@ async function fetchPortalZaragoza() {
       raw_response: data
     };
 
-    console.log(`[Portal] Got ${portalData.datasets} datasets`);
+    console.error(`[Portal] Got ${portalData.datasets} datasets`);
     
     // Cache result
     cache.set(CACHE_KEY, portalData);

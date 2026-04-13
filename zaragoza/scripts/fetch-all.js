@@ -10,7 +10,7 @@ import fetchPortalZaragoza from './fetch-portal-zaragoza.js';
 import fetchCameras from './fetch-camaras.js';
 
 async function fetchAllZaragoza() {
-  console.log('=== Starting parallel fetch of all Zaragoza data ===\n');
+  console.error('=== Starting parallel fetch of all Zaragoza data ===\n');
   
   const startTime = Date.now();
   
@@ -64,12 +64,12 @@ async function fetchAllZaragoza() {
 
     // Summary
     const successCount = results.filter(r => r.status === 'fulfilled').length;
-    console.log(`\n✓ Completed ${successCount}/5 sources in ${consolidated.duration_ms}ms`);
+    console.error(`\n✓ Completed ${successCount}/5 sources in ${consolidated.duration_ms}ms`);
     
     if (consolidated.errors.length > 0) {
-      console.log('\n⚠ Errors:');
+      console.error('\n⚠ Errors:');
       consolidated.errors.forEach(err => {
-        console.log(`  - ${err.source}: ${err.error}`);
+        console.error(`  - ${err.source}: ${err.error}`);
       });
     }
 

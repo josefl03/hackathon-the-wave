@@ -40,20 +40,26 @@ MOBILENET_METADATA_PATH = MOBILENET_DIR / "audioset_tagging_cnn" / "metadata" / 
 # -------------------------------------------------------------------
 # Startup & Loading
 # -------------------------------------------------------------------
-@app.on_event("startup")
-def load_models():
-    global yolo_model, mobilenet_model, mobilenet_class_names
-    global MOBILENET_FIRE_IDX, MOBILENET_CRACKLE_IDX, MOBILENET_DEVICE
-    logger.info("Starting up and loading models into memory...")
+def get_yolo_model():
+    global yolo_model
+    if yolo_model is None:
+        try:
+            from ultralytics import YOLO
+            logger.info(f"Loading original YOLOv8 model from {YOLO_MODEL_PATH}...")
+            yolo_model = YOLO(YOLO_MODEL_PATH)
+            logger.info("YOLOv8 model loaded successfully.")
+        except Exception as e:
+            logger.error(f"Failed to load YOLOv8 model: {e}")
+    return yolo_model
 
-    # Load YOLO
-    try:
-        from ultralytics import YOLO
-        logger.info(f"Loading YOLOv8 model from {YOLO_MODEL_PATH}...")
-        yolo_model = YOLO(YOLO_MODEL_PATH)
-        logger.info("YOLOv8 model loaded successfully.")
-    except Exception as e:
-        logger.error(f"Failed to load YOLOv8 model: {e}")
+@app.on_event("startup")
+def startup_event():
+    global mobilenet_model, mobilenet_class_names
+    global MOBILENET_FIRE_IDX, MOBILENET_CRACKLE_IDX, MOBILENET_DEVICE
+    logger.info("Starting up... initializing engines.")
+
+    # Load YOLO model
+    get_yolo_model()
 
     # Load MobileNetV2
     try:
@@ -88,7 +94,7 @@ def load_models():
             
         with torch.inference_mode():
             _ = mobilenet_model(dummy_audio)
-
+ 
         # Load class metadata
         with MOBILENET_METADATA_PATH.open(newline="", encoding="utf-8") as fh:
             reader = csv.DictReader(fh)
@@ -155,8 +161,9 @@ async def infer_image(file: UploadFile = File(...)):
     Run fast YOLOv8 inference on an uploaded image.
     Returns the bounding boxes, classes, and probabilities.
     """
-    if yolo_model is None:
-        raise HTTPException(status_code=500, detail="YOLOv8 model is not loaded.")
+    model = get_yolo_model()
+    if model is None:
+        raise HTTPException(status_code=500, detail="YOLOv8 model failed to load.")
         
     start_time = time.time()
     
@@ -167,8 +174,8 @@ async def infer_image(file: UploadFile = File(...)):
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Invalid image file: {e}")
 
-    # Run inference
-    results = yolo_model(image)
+    # Run inference with higher confidence to filter out false positives
+    results = model(image, conf=0.40, iou=0.45)
     
     detections = []
     # results is a list of Results objects (one per image)
@@ -192,6 +199,55 @@ async def infer_image(file: UploadFile = File(...)):
     return JSONResponse(content={
         "latency_sec": latency,
         "detections": detections
+    })
+
+@app.post("/api/inference/audio")
+async def infer_audio(file: UploadFile = File(...)):
+    """
+    Run MobileNetV2 inference on an uploaded audio file.
+    Returns the fire probability and top predicted classes.
+    """
+    if mobilenet_model is None:
+        raise HTTPException(status_code=500, detail="MobileNetV2 model not loaded")
+        
+    start_time = time.time()
+    
+    try:
+        audio_bytes = await file.read()
+        audio, sr = decode_audio_bytes(audio_bytes)
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Invalid audio file: {e}")
+    
+    if sr != 32000:
+        from scipy.signal import resample_poly
+        audio = resample_poly(audio, 32000, sr).astype("float32")
+        
+    with torch.inference_mode():
+        input_tensor = torch.tensor(audio[None, :]).to(MOBILENET_DEVICE)
+        if MOBILENET_DEVICE.type == 'cuda':
+            input_tensor = input_tensor.half()
+            
+        outputs = mobilenet_model(input_tensor)
+        if isinstance(outputs, dict) and 'clipwise_output' in outputs:
+            scores = outputs['clipwise_output'].float().cpu().numpy()[0]
+        else:
+            scores = outputs.float().cpu().numpy()[0]
+            
+    fire_score = 0.0
+    if MOBILENET_FIRE_IDX != -1:
+        fire_score += scores[MOBILENET_FIRE_IDX]
+    if MOBILENET_CRACKLE_IDX != -1:
+        fire_score += scores[MOBILENET_CRACKLE_IDX]
+        
+    top_k = np.argsort(scores)[::-1][:5]
+    top_classes = [{"class": mobilenet_class_names[idx], "probability": float(scores[idx])} for idx in top_k]
+
+    latency = time.time() - start_time
+    
+    return JSONResponse(content={
+        "latency_sec": latency,
+        "fire_probability": float(fire_score),
+        "top_classes": top_classes
     })
 
 @app.websocket("/api/ws/audio")

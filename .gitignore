@@ -45,3 +45,5 @@ Thumbs.db
 # IDEs
 .vscode/
 .idea/
+dashboard/dashboard.log
+modelos-ia/sample/sample.webm.part

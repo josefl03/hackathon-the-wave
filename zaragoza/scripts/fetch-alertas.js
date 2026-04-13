@@ -14,7 +14,7 @@ const CACHE_KEY = 'alertas_incendios';
 async function fetchAlertsWithPuppeteer() {
   let browser;
   try {
-    console.log('[Alerts] Launching browser');
+    console.error('[Alerts] Launching browser');
     browser = await puppeteer.launch({ 
       headless: true,
       args: ['--no-sandbox', '--disable-setuid-sandbox']
@@ -79,15 +79,15 @@ async function fetchAlertasIncendios() {
     // Check cache first
     const cached = cache.get(CACHE_KEY);
     if (cached) {
-      console.log('[Alerts] Cache hit');
+      console.error('[Alerts] Cache hit');
       return normalizeResponse('alertas_incendios', cached, 'ok');
     }
 
-    console.log('[Alerts] Fetching from', ALERTS_URL);
+    console.error('[Alerts] Fetching from', ALERTS_URL);
     
     const alertData = await fetchAlertsWithPuppeteer();
     
-    console.log('[Alerts] Levels:', alertData);
+    console.error('[Alerts] Levels:', alertData);
     
     // Cache result
     cache.set(CACHE_KEY, alertData);
