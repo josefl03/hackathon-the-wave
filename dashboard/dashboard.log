@@ -1,0 +1,297 @@
+
+> dashboard@1.0.0 dev
+> concurrently "npm run dev --prefix frontend" "npm run dev --prefix backend" "cd backend/api && .venv/bin/uvicorn main:app --reload --port 8000"
+
+[1] 
+[1] > backend@1.0.0 dev
+[1] > nodemon server.js
+[1] 
+[0] 
+[0] > frontend@0.1.0 dev
+[0] > next dev
+[0] 
+[2] INFO:     Will watch for changes in these directories: ['/home/shared/TFIA/hackathon-the-wave/dashboard/backend/api']
+[2] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[2] INFO:     Started reloader process [74259] using StatReload
+[1] [33m[nodemon] 3.1.14[39m
+[1] [33m[nodemon] to restart at any time, enter `rs`[39m
+[1] [33m[nodemon] watching path(s): *.*[39m
+[1] [33m[nodemon] watching extensions: js,mjs,cjs,json[39m
+[1] [32m[nodemon] starting `node server.js`[39m
+[1] Backend server listening on port 3001
+[0] ▲ Next.js 16.2.3 (Turbopack)
+[0] - Local:         http://localhost:3000
+[0] - Network:       http://192.168.83.170:3000
+[0] - Environments: .env.local
+[0] ✓ Ready in 446ms
+[0] ⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+[0]  We detected multiple lockfiles and selected the directory of /home/shared/TFIA/hackathon-the-wave/dashboard/package-lock.json as the root directory.
+[0]  To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+[0]    See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+[0]  Detected additional lockfiles: 
+[0]    * /home/shared/TFIA/hackathon-the-wave/dashboard/frontend/package-lock.json
+[0] 
+[0] 
+[2] INFO:     Started server process [74298]
+[2] INFO:     Waiting for application startup.
+[2] INFO:inference_api:Starting up and loading models into memory...
+[2] ERROR:inference_api:Failed to load YOLOv8 model: No module named 'ultralytics'
+[2] INFO:inference_api:Loading MobileNetV2 from /home/shared/TFIA/hackathon-the-wave/modelos-ia/mobilenetv2/audioset_tagging_cnn/MobileNetV2_mAP=0.383.pth on cpu...
+[2] ERROR:inference_api:Failed to load MobileNetV2 model: No module named 'torchlibrosa'
+[2] INFO:     Application startup complete.
+[0] ⨯ ./frontend/src/app/page.tsx:339:7
+[0] Expression expected
+[0]   [90m337 |[0m </section>
+[0]   [90m338 |[0m </main>
+[0] [31m[1m>[0m [90m339 |[0m     </>
+[0]   [90m    |[0m       [31m[1m^[0m
+[0]   [90m340 |[0m   );
+[0]   [90m341 |[0m }
+[0]   [90m342 |[0m
+[0] 
+[0] Parsing ecmascript source code failed
+[0] 
+[0] 
+[0]  GET / 500 in 2.6s (next.js: 2.5s, application-code: 87ms)
+[0] [browser] Uncaught Error: ./frontend/src/app/page.tsx:339:7
+[0] Expression expected
+[0]   337 | </section>
+[0]   338 | </main>
+[0] > 339 |     </>
+[0]       |       ^
+[0]   340 |   );
+[0]   341 | }
+[0]   342 |
+[0] 
+[0] Parsing ecmascript source code failed
+[0] 
+[0] 
+[0]     at <unknown> (Error: ./frontend/src/app/page.tsx:339:7)
+[0]     at <unknown> (Error: (./frontend/src/app/page.tsx:339:7)
+[0] [browser] ./frontend/src/app/page.tsx:339:7
+[0] Expression expected
+[0]   337 | </section>
+[0]   338 | </main>
+[0] > 339 |     </>
+[0]       |       ^
+[0]   340 |   );
+[0]   341 | }
+[0]   342 |
+[0] 
+[0] Parsing ecmascript source code failed 
+[0] [browser] ./frontend/src/app/page.tsx:339:7
+[0] Expression expected
+[0]   337 | </section>
+[0]   338 | </main>
+[0] > 339 |     </>
+[0]       |       ^
+[0]   340 |   );
+[0]   341 | }
+[0]   342 |
+[0] 
+[0] Parsing ecmascript source code failed 
+[0] [browser] ./frontend/src/app/page.tsx:339:7
+[0] Expression expected
+[0]   337 | </section>
+[0]   338 | </main>
+[0] > 339 |     </>
+[0]       |       ^
+[0]   340 |   );
+[0]   341 | }
+[0]   342 |
+[0] 
+[0] Parsing ecmascript source code failed 
+[0] [browser] ./frontend/src/app/page.tsx:339:7
+[0] Expression expected
+[0]   337 | </section>
+[0]   338 | </main>
+[0] > 339 |     </>
+[0]       |       ^
+[0]   340 |   );
+[0]   341 | }
+[0]   342 |
+[0] 
+[0] Parsing ecmascript source code failed 
+[0]  GET / 200 in 705ms (next.js: 291ms, application-code: 414ms)
+[0]  GET / 200 in 422ms (next.js: 61ms, application-code: 360ms)
+[0]  GET / 200 in 178ms (next.js: 4ms, application-code: 174ms)
+[0]  GET / 200 in 118ms (next.js: 3ms, application-code: 114ms)
+[0]  GET / 200 in 64ms (next.js: 7ms, application-code: 57ms)
+[0]  GET / 200 in 72ms (next.js: 9ms, application-code: 63ms)
+[0] ✓ Compiled in 59ms
+[0] ✓ Compiled in 57ms
+[0]  GET / 200 in 53ms (next.js: 6ms, application-code: 47ms)
+[0] ✓ Compiled in 20ms
+[0] ⨯ ./frontend/src/app/page.tsx:309:8
+[0] Expected '</', got 'jsx text'
+[0]   [90m307 |[0m </div>
+[0]   [90m308 |[0m </section>
+[0] [31m[1m>[0m [90m309 |[0m </main>
+[0]   [90m    |[0m        [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[0] [31m[1m>[0m [90m310 |[0m </div>
+[0]   [90m    |[0m [31m[1m^[0m
+[0]   [90m311 |[0m     </>
+[0]   [90m312 |[0m   );
+[0]   [90m313 |[0m }
+[0] 
+[0] Parsing ecmascript source code failed
+[0] 
+[0] 
+[0]  GET / 500 in 22ms (next.js: 7ms, application-code: 15ms)
+[0] ⨯ ./frontend/src/app/page.tsx:309:8
+[0] Expected '</', got 'jsx text'
+[0]   [90m307 |[0m </div>
+[0]   [90m308 |[0m </section>
+[0] [31m[1m>[0m [90m309 |[0m </main>
+[0]   [90m    |[0m        [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[0] [31m[1m>[0m [90m310 |[0m </div>
+[0]   [90m    |[0m [31m[1m^[0m
+[0]   [90m311 |[0m     </>
+[0]   [90m312 |[0m   );
+[0]   [90m313 |[0m }
+[0] 
+[0] Parsing ecmascript source code failed
+[0] 
+[0] 
+[0]  GET / 500 in 14ms (next.js: 5ms, application-code: 9ms)
+[0] [browser] Uncaught Error: ./frontend/src/app/page.tsx:309:8
+[0] Expected '</', got 'jsx text'
+[0]   307 | </div>
+[0]   308 | </section>
+[0] > 309 | </main>
+[0]       |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[0] > 310 | </div>
+[0]       | ^
+[0]   311 |     </>
+[0]   312 |   );
+[0]   313 | }
+[0] 
+[0] Parsing ecmascript source code failed
+[0] 
+[0] 
+[0]     at <unknown> (Error: ./frontend/src/app/page.tsx:309:8)
+[0]     at <unknown> (Error: (./frontend/src/app/page.tsx:309:8)
+[0] [browser] ./frontend/src/app/page.tsx:309:8
+[0] Expected '</', got 'jsx text'
+[0]   307 | </div>
+[0]   308 | </section>
+[0] > 309 | </main>
+[0]       |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[0] > 310 | </div>
+[0]       | ^
+[0]   311 |     </>
+[0]   312 |   );
+[0]   313 | }
+[0] 
+[0] Parsing ecmascript source code failed 
+[0] [browser] ./frontend/src/app/page.tsx:309:8
+[0] Expected '</', got 'jsx text'
+[0]   307 | </div>
+[0]   308 | </section>
+[0] > 309 | </main>
+[0]       |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[0] > 310 | </div>
+[0]       | ^
+[0]   311 |     </>
+[0]   312 |   );
+[0]   313 | }
+[0] 
+[0] Parsing ecmascript source code failed 
+[0] ⨯ ./frontend/src/app/page.tsx:309:8
+[0] Expected '</', got 'jsx text'
+[0]   [90m307 |[0m </div>
+[0]   [90m308 |[0m </section>
+[0] [31m[1m>[0m [90m309 |[0m </main>
+[0]   [90m    |[0m        [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[0] [31m[1m>[0m [90m310 |[0m </div>
+[0]   [90m    |[0m [31m[1m^[0m
+[0]   [90m311 |[0m     </>
+[0]   [90m312 |[0m   );
+[0]   [90m313 |[0m }
+[0] 
+[0] Parsing ecmascript source code failed
+[0] 
+[0] 
+[0]  GET / 500 in 16ms (next.js: 5ms, application-code: 11ms)
+[0] [browser] Uncaught Error: ./frontend/src/app/page.tsx:309:8
+[0] Expected '</', got 'jsx text'
+[0]   307 | </div>
+[0]   308 | </section>
+[0] > 309 | </main>
+[0]       |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[0] > 310 | </div>
+[0]       | ^
+[0]   311 |     </>
+[0]   312 |   );
+[0]   313 | }
+[0] 
+[0] Parsing ecmascript source code failed
+[0] 
+[0] 
+[0]     at <unknown> (Error: ./frontend/src/app/page.tsx:309:8)
+[0]     at <unknown> (Error: (./frontend/src/app/page.tsx:309:8)
+[0] [browser] ./frontend/src/app/page.tsx:309:8
+[0] Expected '</', got 'jsx text'
+[0]   307 | </div>
+[0]   308 | </section>
+[0] > 309 | </main>
+[0]       |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[0] > 310 | </div>
+[0]       | ^
+[0]   311 |     </>
+[0]   312 |   );
+[0]   313 | }
+[0] 
+[0] Parsing ecmascript source code failed 
+[0]  GET / 200 in 405ms (next.js: 81ms, application-code: 324ms)
+[0]  GET / 200 in 3.3s (next.js: 225ms, application-code: 3.1s)
+[2] WARNING:  StatReload detected changes in 'main.py'. Reloading...
+[2] INFO:     Shutting down
+[2] INFO:     Waiting for application shutdown.
+[2] INFO:     Application shutdown complete.
+[2] INFO:     Finished server process [74298]
+[2] INFO:     Started server process [77416]
+[2] INFO:     Waiting for application startup.
+[2] INFO:inference_api:Starting up and loading models into memory...
+[2] ERROR:inference_api:Failed to load YOLOv8 model: No module named 'ultralytics'
+[2] INFO:inference_api:Loading MobileNetV2 from /home/shared/TFIA/hackathon-the-wave/modelos-ia/mobilenetv2/audioset_tagging_cnn/MobileNetV2_mAP=0.383.pth on cpu...
+[2] ERROR:inference_api:Failed to load MobileNetV2 model: No module named 'torchlibrosa'
+[2] INFO:     Application startup complete.
+[0] ✓ Compiled in 782ms
+[0]  GET / 200 in 411ms (next.js: 145ms, application-code: 266ms)
+[0]  GET / 200 in 876ms (next.js: 110ms, application-code: 766ms)
+[2] WARNING:  StatReload detected changes in 'main.py'. Reloading...
+[2] INFO:     Shutting down
+[2] INFO:     Waiting for application shutdown.
+[2] INFO:     Application shutdown complete.
+[2] INFO:     Finished server process [77416]
+[2] INFO:     Started server process [77807]
+[2] INFO:     Waiting for application startup.
+[2] INFO:inference_api:Starting up and loading models into memory...
+[2] ERROR:inference_api:Failed to load YOLOv8 model: No module named 'ultralytics'
+[2] INFO:inference_api:Loading MobileNetV2 from /home/shared/TFIA/hackathon-the-wave/modelos-ia/mobilenetv2/audioset_tagging_cnn/MobileNetV2_mAP=0.383.pth on cpu...
+[2] ERROR:inference_api:Failed to load MobileNetV2 model: No module named 'torchlibrosa'
+[2] INFO:     Application startup complete.
+[2] WARNING:  StatReload detected changes in 'main.py'. Reloading...
+[2] INFO:     Shutting down
+[2] INFO:     Waiting for application shutdown.
+[2] INFO:     Application shutdown complete.
+[2] INFO:     Finished server process [77807]
+[2] INFO:     Started server process [77953]
+[2] INFO:     Waiting for application startup.
+[2] INFO:inference_api:Starting up and loading models into memory...
+[2] ERROR:inference_api:Failed to load YOLOv8 model: No module named 'ultralytics'
+[2] INFO:inference_api:Loading MobileNetV2 from /home/shared/TFIA/hackathon-the-wave/modelos-ia/mobilenetv2/audioset_tagging_cnn/MobileNetV2_mAP=0.383.pth on cpu...
+[2] ERROR:inference_api:Failed to load MobileNetV2 model: No module named 'torchlibrosa'
+[2] INFO:     Application startup complete.
+[0]  GET / 200 in 77ms (next.js: 6ms, application-code: 71ms)
+[0]  GET / 200 in 219ms (next.js: 132ms, application-code: 87ms)
+[0]  GET / 200 in 42ms (next.js: 2ms, application-code: 39ms)
+[0]  GET / 200 in 55ms (next.js: 3ms, application-code: 52ms)
+[0]  GET / 200 in 35ms (next.js: 3ms, application-code: 32ms)
+[0]  GET / 200 in 17ms (next.js: 1469µs, application-code: 15ms)
+[0] ✓ Compiled in 0ms
+[0] ✓ Compiled in 51ms
+[0] ✓ Compiled in 86ms
+[0] ✓ Compiled in 100ms
+[0] ✓ Compiled in 63ms
