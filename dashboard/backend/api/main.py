@@ -11,9 +11,15 @@ import sys
 import torch
 import numpy as np
 
+# -------------------------------------------------------------------
+# Path Configurations
+# -------------------------------------------------------------------
+SCRIPT_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = SCRIPT_DIR.parent.parent.parent
+
 # Add audioset_tagging_cnn/pytorch to sys.path
-pytorch_dir = Path("/home/shared/TFIA/hackathon-the-wave/modelos-ia/mobilenetv2/audioset_tagging_cnn/pytorch")
-if str(pytorch_dir) not in sys.path:
+pytorch_dir = PROJECT_ROOT / "modelos-ia" / "mobilenetv2" / "audioset_tagging_cnn" / "pytorch"
+if pytorch_dir.exists() and str(pytorch_dir) not in sys.path:
     sys.path.insert(0, str(pytorch_dir))
 
 # Create a logger
@@ -32,8 +38,8 @@ MOBILENET_FIRE_IDX = -1
 MOBILENET_CRACKLE_IDX = -1
 MOBILENET_DEVICE = None
 
-YOLO_MODEL_PATH = "/home/shared/TFIA/hackathon-the-wave/modelos-ia/YOLOv8-Fire-and-Smoke-Detection/runs/detect/train/weights/best.pt"
-MOBILENET_DIR = Path("/home/shared/TFIA/hackathon-the-wave/modelos-ia/mobilenetv2")
+YOLO_MODEL_PATH = PROJECT_ROOT / "modelos-ia" / "yolo11-fire" / "firedetect-11s_ncnn_model"
+MOBILENET_DIR = PROJECT_ROOT / "modelos-ia" / "mobilenetv2"
 MOBILENET_MODEL_PATH = MOBILENET_DIR / "audioset_tagging_cnn" / "MobileNetV2_mAP=0.383.pth"
 MOBILENET_METADATA_PATH = MOBILENET_DIR / "audioset_tagging_cnn" / "metadata" / "class_labels_indices.csv"
 
@@ -45,11 +51,12 @@ def get_yolo_model():
     if yolo_model is None:
         try:
             from ultralytics import YOLO
-            logger.info(f"Loading original YOLOv8 model from {YOLO_MODEL_PATH}...")
-            yolo_model = YOLO(YOLO_MODEL_PATH)
-            logger.info("YOLOv8 model loaded successfully.")
+            logger.info(f"Loading YOLO model from {YOLO_MODEL_PATH}...")
+            # Ultralytics can load NCNN folders if passed correctly
+            yolo_model = YOLO(str(YOLO_MODEL_PATH), task="detect")
+            logger.info("YOLO model loaded successfully.")
         except Exception as e:
-            logger.error(f"Failed to load YOLOv8 model: {e}")
+            logger.error(f"Failed to load YOLO model: {e}")
     return yolo_model
 
 @app.on_event("startup")
@@ -163,7 +170,7 @@ async def infer_image(file: UploadFile = File(...)):
     """
     model = get_yolo_model()
     if model is None:
-        raise HTTPException(status_code=500, detail="YOLOv8 model failed to load.")
+        raise HTTPException(status_code=500, detail="Fire detection model is not loaded.")
         
     start_time = time.time()
     
@@ -175,7 +182,8 @@ async def infer_image(file: UploadFile = File(...)):
         raise HTTPException(status_code=400, detail=f"Invalid image file: {e}")
 
     # Run inference with higher confidence to filter out false positives
-    results = model(image, conf=0.40, iou=0.45)
+    # Lowered threshold to 0.25 as requested to improve sensitivity
+    results = model(image, conf=0.25, iou=0.45)
     
     detections = []
     # results is a list of Results objects (one per image)
@@ -320,4 +328,4 @@ async def websocket_audio(websocket: WebSocket):
             pass
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8001)

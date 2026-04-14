@@ -92,7 +92,7 @@ wss.on('connection', (ws) => {
                 const formData = new FormData();
                 formData.append('file', blob, 'frame.jpg');
 
-                const aiUrl = 'http://127.0.0.1:8000/api/inference/image';
+                const aiUrl = 'http://127.0.0.1:8001/api/inference/image';
                 const response = await fetch(aiUrl, {
                     method: 'POST',
                     body: formData,
@@ -117,7 +117,7 @@ wss.on('connection', (ws) => {
                 const formData = new FormData();
                 formData.append('file', blob, 'audio.webm');
 
-                const aiUrl = 'http://127.0.0.1:8000/api/inference/audio';
+                const aiUrl = 'http://127.0.0.1:8001/api/inference/audio';
                 const response = await fetch(aiUrl, {
                     method: 'POST',
                     body: formData,
